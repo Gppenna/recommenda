@@ -1,0 +1,218 @@
+.block_recommenda {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.wd100 {
+	width: 100%!important;
+	max-width: 100%!important;
+	flex: 0 0 100%!important;
+	left: 33%;
+}
+
+.block_recommenda p {
+	margin-bottom: 0;
+}
+
+.clear {
+	clear: both;
+}
+
+.block_recommenda .carousel-control-prev-icon {
+	width:25px;
+    height:25px;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'%555\' viewBox=\'0 0 8 8\'%3E%3Cpath d=\'M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z\'/%3E%3C/svg%3E");
+}
+
+.block_recommenda .carousel-control-next-icon {
+	width:25px;
+    height:25px;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'%555\' viewBox=\'0 0 8 8\'%3E%3Cpath d=\'M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z\'/%3E%3C/svg%3E");
+}
+
+.block_recommenda .carousel-control-next {
+	left: 98%;
+}
+
+.block_recommenda .carousel-control-prev,
+.block_recommenda .carousel-control-next {
+    opacity: 0.4;
+    transition: opacity 0.15s ease;
+    width: 4%;
+}
+
+.block_recommenda .carousel-control-prev {
+	left: -2%;
+}
+
+.block_recommenda .carousel-control-prev:hover,
+.block_recommenda .carousel-control-prev:focus,
+.block_recommenda .carousel-control-next:hover,
+.block_recommenda .carousel-control-next:focus {
+    color: #fff;
+    text-decoration: none;
+    outline: 0;
+    opacity: 0.9;
+}
+
+.block_recommenda #secondString,
+.block_recommenda #thirdString {
+	display: none;
+}
+
+.block_recommenda .button-div {
+	left: 27%;
+	margin: 0;
+}
+
+
+.block_recommenda #course-count {
+	float: right;
+	font-size: 13px;
+	font-weight: 300;
+	color: #888;
+	width: auto;
+	text-align: inherit;
+	padding: 5px;
+	margin-left: 5px;
+}
+
+.block_recommenda input[type=submit] {
+	font-size: 16px;
+	cursor: pointer;
+	
+}
+
+.block_recommenda .main-block {
+	z-index: 1;
+} 
+
+.block_recommenda .relative-container {
+	float: right;
+	margin-bottom: 10px;
+}
+
+.block_recommenda .acao {
+    text-decoration: none;
+    text-align: center;
+    width: auto;
+    height: auto;
+    cursor: pointer;
+    border: none !important;
+    padding: 5px 10px;
+    border-radius: 2px;
+}
+
+.block_recommenda span.text-smaller small {
+  font-size: smaller;
+  font-weight: unset;
+}
+
+.block_recommenda #enrolled-every-course {
+    font-size: 16px;
+    font-weight: 300;
+    margin: 20px;
+    width: 80%;
+    text-align: center;
+}
+
+.block_recommenda .min-dimensions {
+	width: 250px;
+    height: 250px;
+}
+
+.block_recommenda .courseimage {
+    display: flex;
+    flex-wrap: wrap;
+    z-index: 1;
+    background-position: 50% 50% !important;
+    background-repeat: no-repeat !important;
+    background-size: 250px 250px !important;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
+	border: 1px solid rgba(0,0,0,0.1);
+}
+
+.block_recommenda .courseimage-overlay {
+	height: 100%;
+	width: 100%;
+	z-index: 3;
+	border: 1px solid rgba(0,0,0,0.1);
+	background-color: rgba(0,0,0,0.6);
+
+	visibility: hidden;
+}
+
+.block_recommenda .coursename-overlay {
+	background-color: rgba(0,0,0,0.8);
+	border: 1px solid rgba(0,0,0,0.1);
+	align-self: flex-start;
+	text-align: center;
+
+}
+.block_recommenda .coursename-overlay a {
+	font-size: 14px;
+	padding: 10px;
+	display: block;
+	font-weight: bold;
+	text-decoration: none;
+	color: #fff;
+}
+
+.block_recommenda .summary-overlay {
+	-webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+	align-self: center;
+	margin: 20px 10px;
+
+}
+
+.block_recommenda .summary-overlay p {
+	color: #fff;
+	display: block;
+	font-weight: 300;
+	font-size: 13px;
+}
+
+.block_recommenda .coursename-container {
+	width: 250px;
+	height: auto;
+	z-index: 2;
+	background-color: rgba(0,0,0,0.8);
+	border: 1px solid rgba(0,0,0,0.1);
+	align-self: flex-end;
+	text-align: center;
+}
+
+.block_recommenda .coursename-container a {
+	font-size: 14px;
+	padding: 10px;
+	display: block;
+	font-weight: bold;
+	text-decoration: none;
+	color: #fff;
+}
+
+.block_recommenda .mobile-coursename {
+	display: none;
+  	justify-content: center;
+  	text-align: center;
+  	align-items: center;
+	border-bottom: 1px solid #999;
+	margin: 20px;
+}
+
+.block_recommenda .mobile-coursename a {
+	font-size: 25px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #666;
+}
+
+.block_recommenda .mobile-coursename a:hover {
+	color: #222;
+	transition: 0.5s;
+}
+
