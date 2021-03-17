@@ -54,8 +54,8 @@ class block_recommenda extends block_base {
         $this->content->text .= '<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">';
         $this->content->text .= '<script src="https://kit.fontawesome.com/ef79d3f4e6.js" crossorigin="anonymous"></script>';
 
-        if (!empty(optional_param('submitbutton', '', PARAM_TEXT))) {
-            useredit_update_interests($USER, optional_param_array('tags', array(), PARAM_TEXT));
+        if (!empty(optional_param('block_recommenda-submitbutton', '', PARAM_TEXT))) {
+            useredit_update_interests($USER, optional_param_array('recommenda_tags', array(), PARAM_TEXT));
         }
         
         // Array of user tags
@@ -71,17 +71,20 @@ class block_recommenda extends block_base {
                 $interests[$key] = $tag;
             }
         }
-        if (empty($interests) || (!empty(optional_param('acao', '', PARAM_TEXT)) && optional_param('acao', '', PARAM_TEXT) == 'editinterests') || 
-            (!empty(optional_param('submitbutton', '', PARAM_TEXT)) && (empty($interests) && empty(optional_param_array('tags', array(), PARAM_TEXT))))) {
+        if (empty($interests) || (!empty(optional_param('recommenda-editinterests-acao', '', PARAM_TEXT)) && optional_param('recommenda-editinterests-acao', '', PARAM_TEXT) == 'recommenda-editinterests') || 
+            (!empty(optional_param('block_recommenda-submitbutton', '', PARAM_TEXT)) && (empty($interests) && empty(optional_param_array('recommenda_tags', array(), PARAM_TEXT))))) {
             $this->content->text .= execute_interests_form($profile_interests);
         }
         else if (!empty($interests)) {
             $this->content->text = '';
 
+            $path = '\\block_recommenda\\renderer';
+            $carroussel = new $path($interests);
+
             $this->content->text .= html_writer::start_div('main-block');
             $this->content->text .= '<form id="form_edit_interests" method="post"><div class="relative-container">';
-            $this->content->text .= '<input type="hidden" value="editinterests" name="acao" >';
-            $this->content->text .= '<a href="javascript:void(0)" class="acao btn btn-outline-secondary" onClick="document.getElementById(\'form_edit_interests\').submit();" title="'.get_string('editinterestsdesc', 'block_recommenda').'"><i class="fa fa-edit fa-1x"></i> '.get_string('editinterests', 'block_recommenda').'</a>';
+            $this->content->text .= '<input type="hidden" value="recommenda-editinterests" name="recommenda-editinterests-acao" >';
+            $this->content->text .= '<a href="javascript:void(0)" class="recommenda-editinterests-acao btn btn-outline-secondary" onClick="document.getElementById(\'form_edit_interests\').submit();" title="'.get_string('editinterestsdesc', 'block_recommenda').'"><i class="fa fa-edit fa-1x"></i> '.get_string('editinterests', 'block_recommenda').'</a>';
             $this->content->text .= '</div></form>';
             $this->content->text .= '<div class="clear"></div>';
             $this->content->text .= '<div id="secondString">'.get_string('coursesshow2', 'block_recommenda').'</div>';
