@@ -55,7 +55,7 @@ function execute_interests_form($interests = array()) {
     $html .= html_writer::start_div('form-items');
 
     $html .= '<form method="post" accept-charset="utf-8" id="form_tags" class="mform">';
-    if (!empty(optional_param('submitbutton', '', PARAM_TEXT)) && empty(optional_param_array('tags', array(), PARAM_TEXT))) {
+    if (!empty(optional_param('block_recommenda-submitbutton', '', PARAM_TEXT)) && empty(optional_param_array('recommenda_tags', array(), PARAM_TEXT))) {
         $html .= html_writer::tag('p', get_string('formerror', 'block_recommenda') . html_writer::tag('br', ''), array('style' => 'color: red'));
     }
 
@@ -78,7 +78,7 @@ function execute_interests_form($interests = array()) {
             }
         }
         $html .= '<label id="label_tag_' . $tag->id . '">';
-        $html .= '<input ' . $checked . ' type="checkbox" name="tags[]" class="form-check-input" value="' . $tag->rawname . '" id="id_tag_' . $tag->id . '">';
+        $html .= '<input ' . $checked . ' type="checkbox" name="recommenda_tags[]" class="form-check-input" value="' . $tag->rawname . '" id="id_tag_' . $tag->id . '">';
         $html .= $tag->rawname . '</label>';
         $html .= '</div>';
 
@@ -95,7 +95,7 @@ function execute_interests_form($interests = array()) {
     $html .= '<div id="fgroup_id_buttonar" class="form-group row fitem femptylabel form-inline" data-groupname="buttonar">';
     $html .= '<div class="col-md-9 offset-md-3">';
     $html .= '<div class="form-group fitem" style="display: inline;">';
-    $html .= '<input type="submit" class="btn btn-primary" name="submitbutton" id="id_submitbutton" value="' . get_string('submit', 'block_recommenda') . '">';
+    $html .= '<input type="submit" class="btn btn-primary" name="block_recommenda-submitbutton" id="block_recommenda-id_submitbutton" value="' . get_string('submit', 'block_recommenda') . '">';
     $html .= '</div>';
     if (!empty($interests)) {
         $html .= '<div class="form-group fitem" style="display: inline;">';
