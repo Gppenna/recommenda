@@ -25,8 +25,9 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot . '/blocks/recommenda/renderer.php');
 require_once($CFG->dirroot . '/blocks/recommenda/locallib.php');
+
+require_once($CFG->dirroot . '/user/editlib.php');
 
 
 class block_recommenda extends block_base
