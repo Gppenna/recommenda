@@ -66,7 +66,7 @@ function print_r2($val) {
 // Randomize courses with same rank
 /////////////////////////////////////
 
-function randomize_interests($best_matches) {
+/*function randomize_interests($best_matches) {
     $i = 0;
     $value_flag = 0;
     $count_flag = 0;
@@ -168,3 +168,4 @@ function organize_interests($interests) {
     uasort($best_matches, 'cmp');
     return randomize_interests($best_matches);
 }
+*/

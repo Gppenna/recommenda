@@ -28,17 +28,22 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/blocks/recommenda/renderer.php');
 require_once($CFG->dirroot . '/blocks/recommenda/locallib.php');
 
-class block_recommenda extends block_base {
 
-    public function init() {
+class block_recommenda extends block_base
+{
+
+    public function init()
+    {
         $this->title = get_string('recommenda', 'block_recommenda');
     }
 
-    function has_config() {
+    function has_config()
+    {
         return true;
     }
 
-    public function get_content() {
+    public function get_content()
+    {
         global $PAGE, $USER, $CFG;
 
         if ($this->content !== null) {
@@ -57,7 +62,7 @@ class block_recommenda extends block_base {
         if (!empty(optional_param('block_recommenda-submitbutton', '', PARAM_TEXT))) {
             useredit_update_interests($USER, optional_param_array('recommenda_tags', array(), PARAM_TEXT));
         }
-        
+
         // Array of user tags
         $profile_interests = core_tag_tag::get_item_tags_array('core', 'user', $USER->id, core_tag_tag::BOTH_STANDARD_AND_NOT, 0, false);
         $interests = array();
@@ -71,39 +76,38 @@ class block_recommenda extends block_base {
                 $interests[$key] = $tag;
             }
         }
-        if (empty($interests) || (!empty(optional_param('recommenda-editinterests-acao', '', PARAM_TEXT)) && optional_param('recommenda-editinterests-acao', '', PARAM_TEXT) == 'recommenda-editinterests') || 
+        $path = '\\block_recommenda\\renderer';
+        $renderer = new $path($interests, $profile_interests);
+        $class = $renderer->get_class();
+        $class_object = new $class($renderer->get_interests());
+        
+        /*if (empty($interests) || (!empty(optional_param('recommenda-editinterests-acao', '', PARAM_TEXT)) && optional_param('recommenda-editinterests-acao', '', PARAM_TEXT) == 'recommenda-editinterests') || 
             (!empty(optional_param('block_recommenda-submitbutton', '', PARAM_TEXT)) && (empty($interests) && empty(optional_param_array('recommenda_tags', array(), PARAM_TEXT))))) {
             $this->content->text .= execute_interests_form($profile_interests);
         }
-        else if (!empty($interests)) {
-            $this->content->text = '';
+        */
+        $this->content->text = '';
 
-            $path = '\\block_recommenda\\renderer';
-            $carroussel = new $path($interests);
+        $this->content->text .= html_writer::start_div('main-block');
+        $this->content->text .= '<form id="form_edit_interests" method="post"><div class="relative-container">';
+        $this->content->text .= '<input type="hidden" value="recommenda-editinterests" name="recommenda-editinterests-acao" >';
+        $this->content->text .= '<a href="javascript:void(0)" class="recommenda-editinterests-acao btn btn-outline-secondary" onClick="document.getElementById(\'form_edit_interests\').submit();" title="' . get_string('editinterestsdesc', 'block_recommenda') . '"><i class="fa fa-edit fa-1x"></i> ' . get_string('editinterests', 'block_recommenda') . '</a>';
+        $this->content->text .= '</div></form>';
+        $this->content->text .= '<div class="clear"></div>';
+        $this->content->text .= '<div id="secondString">' . get_string('coursesshow2', 'block_recommenda') . '</div>';
+        $this->content->text .= '<div id="thirdString">' . get_string('coursesshow3', 'block_recommenda') . '</div>';
 
-            $this->content->text .= html_writer::start_div('main-block');
-            $this->content->text .= '<form id="form_edit_interests" method="post"><div class="relative-container">';
-            $this->content->text .= '<input type="hidden" value="recommenda-editinterests" name="recommenda-editinterests-acao" >';
-            $this->content->text .= '<a href="javascript:void(0)" class="recommenda-editinterests-acao btn btn-outline-secondary" onClick="document.getElementById(\'form_edit_interests\').submit();" title="'.get_string('editinterestsdesc', 'block_recommenda').'"><i class="fa fa-edit fa-1x"></i> '.get_string('editinterests', 'block_recommenda').'</a>';
-            $this->content->text .= '</div></form>';
-            $this->content->text .= '<div class="clear"></div>';
-            $this->content->text .= '<div id="secondString">'.get_string('coursesshow2', 'block_recommenda').'</div>';
-            $this->content->text .= '<div id="thirdString">'.get_string('coursesshow3', 'block_recommenda').'</div>';
-            $final_array = array_keys(organize_interests($interests));
-            if (sizeof($final_array) == 0) {
-                $this->content->text .= HTML_WRITER::tag('p', get_string('zerocourses', 'block_recommenda'), array('id' => 'enrolled-every-course'));
-                return $this->content;
-            }
-            $this->content->text .= render_html_block($final_array);
+        $html_content = $class_object->render($class_object->get_final_array());
+        $this->content->text .= $html_content;
 
-            $course_count = "1 " . get_string('coursesshow2', 'block_recommenda') . " " . count($final_array) . " " . get_string('coursesshow3', 'block_recommenda');
+        $course_count = "1 " . get_string('coursesshow2', 'block_recommenda') . " " . count($class_object->get_final_array()) . " " . get_string('coursesshow3', 'block_recommenda');
 
-            $this->content->text .= html_writer::start_div('count-div');
-            $this->content->text .= HTML_WRITER::tag('p', $course_count, array('id' => 'course-count'));
-            $this->content->text .= html_writer::end_div();
+        $this->content->text .= html_writer::start_div('count-div');
+        $this->content->text .= HTML_WRITER::tag('p', $course_count, array('id' => 'course-count'));
+        $this->content->text .= html_writer::end_div();
 
-            $this->content->text .= html_writer::end_div();
-        }
+        $this->content->text .= html_writer::end_div();
+
         $this->content->text .= '
     		<script src="https://cdnjs.cloudflare.com/ajax/libs/eqcss/1.9.2/EQCSS.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/css-element-queries/1.2.3/ResizeSensor.js"></script>';
@@ -113,5 +117,4 @@ class block_recommenda extends block_base {
 
         return $this->content;
     }
-
 }

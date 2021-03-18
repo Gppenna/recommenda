@@ -2,25 +2,39 @@
 
 namespace block_recommenda;
 
-require_once("$CFG->libdir/formslib.php");
+class Renderer
+{
 
-require_once($CFG->dirroot . '/user/editlib.php');
-require_once($CFG->libdir . '/coursecatlib.php');
-
-class Renderer {
-
+    private $render_class;
     public function __construct($interests = array(), $profile_interests = array())
     {
-        $this->render_class = '';
+        $this->total_interests = $interests;
+        $this->partial_interests = $profile_interests;
+        $this->final_interests = $this->validate_render($interests);
     }
 
-    private function validate_render($interests = array()) {
-        if (empty($interests) || (!empty(optional_param('recommenda-editinterests-acao', '', PARAM_TEXT)) && optional_param('recommenda-editinterests-acao', '', PARAM_TEXT) == 'editinterests') || 
-            (!empty(optional_param('block_recommenda-submitbutton', '', PARAM_TEXT)) && (empty($interests) && empty(optional_param_array('recommenda_tags', array(), PARAM_TEXT))))) {
+    public function get_class()
+    {
+        return $this->render_class;
+    }
+
+    public function get_interests()
+    {
+        return $this->final_interests;
+    }
+
+    private function validate_render($interests = array())
+    {
+        if (
+            empty($interests) || (!empty(optional_param('recommenda-editinterests-acao', '', PARAM_TEXT)) && optional_param('recommenda-editinterests-acao', '', PARAM_TEXT) == 'recommenda-editinterests') ||
+            (!empty(optional_param('block_recommenda-submitbutton', '', PARAM_TEXT)) && (empty($interests) && empty(optional_param_array('recommenda_tags', array(), PARAM_TEXT))))
+        ) {
             $this->render_class = '\\block_recommenda\\form\\editinterests';
-        }
-        else if(!empty($interests)) {
+            $tmp_int = $this->partial_interests;
+        } else if (!empty($interests)) {
             $this->render_class = '\\block_recommenda\\carroussel\\carroussel';
+            $tmp_int = $this->total_interests;
         }
+        return $tmp_int;
     }
 }
