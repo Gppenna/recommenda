@@ -88,26 +88,8 @@ class block_recommenda extends block_base
         */
         $this->content->text = '';
 
-        $this->content->text .= html_writer::start_div('main-block');
-        $this->content->text .= '<form id="form_edit_interests" method="post"><div class="relative-container">';
-        $this->content->text .= '<input type="hidden" value="recommenda-editinterests" name="recommenda-editinterests-acao" >';
-        $this->content->text .= '<a href="javascript:void(0)" class="recommenda-editinterests-acao btn btn-outline-secondary" onClick="document.getElementById(\'form_edit_interests\').submit();" title="' . get_string('editinterestsdesc', 'block_recommenda') . '"><i class="fa fa-edit fa-1x"></i> ' . get_string('editinterests', 'block_recommenda') . '</a>';
-        $this->content->text .= '</div></form>';
-        $this->content->text .= '<div class="clear"></div>';
-        $this->content->text .= '<div id="secondString">' . get_string('coursesshow2', 'block_recommenda') . '</div>';
-        $this->content->text .= '<div id="thirdString">' . get_string('coursesshow3', 'block_recommenda') . '</div>';
-
         $html_content = $class_object->render($class_object->get_final_array());
         $this->content->text .= $html_content;
-
-        $course_count = "1 " . get_string('coursesshow2', 'block_recommenda') . " " . count($class_object->get_final_array()) . " " . get_string('coursesshow3', 'block_recommenda');
-
-        $this->content->text .= html_writer::start_div('count-div');
-        $this->content->text .= HTML_WRITER::tag('p', $course_count, array('id' => 'course-count'));
-        $this->content->text .= html_writer::end_div();
-
-        $this->content->text .= html_writer::end_div();
-
         $this->content->text .= '
     		<script src="https://cdnjs.cloudflare.com/ajax/libs/eqcss/1.9.2/EQCSS.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/css-element-queries/1.2.3/ResizeSensor.js"></script>';

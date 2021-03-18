@@ -126,13 +126,22 @@ class Carroussel
     {
         global $DB, $CFG;
         $temp_html = '';
+        $temp_html .= html_writer::start_div('main-block');
+        $temp_html .= '<form id="form_edit_interests" method="post"><div class="relative-container">';
+        $temp_html .= '<input type="hidden" value="recommenda-editinterests" name="recommenda-editinterests-acao" >';
+        $temp_html .= '<a href="javascript:void(0)" class="recommenda-editinterests-acao btn btn-outline-secondary" onClick="document.getElementById(\'form_edit_interests\').submit();" title="' . get_string('editinterestsdesc', 'block_recommenda') . '"><i class="fa fa-edit fa-1x"></i> ' . get_string('editinterests', 'block_recommenda') . '</a>';
+        $temp_html .= '</div></form>';
+        $temp_html .= '<div class="clear"></div>';
+        $temp_html .= '<div id="secondString">' . get_string('coursesshow2', 'block_recommenda') . '</div>';
+        $temp_html .= '<div id="thirdString">' . get_string('coursesshow3', 'block_recommenda') . '</div>';
+        
         $chelper = new coursecat_helper();
 
-        $temp_html .= '<div id = "myCarousel" class="carousel slide" data-ride = "carousel" data-interval="5000">';
+        $temp_html .= '<div id = "myCarousel" class="carousel slide" data-ride = "carousel" data-interval="false">';
         $temp_html .= '<div class="carousel-inner row w-100 mx-auto" role="listbox">';
         if (sizeof($final_array) == 0) {
-            $this->content->text .= HTML_WRITER::tag('p', get_string('zerocourses', 'block_recommenda'), array('id' => 'enrolled-every-course'));
-            return $this->content;
+            $temp_html .= HTML_WRITER::tag('p', get_string('zerocourses', 'block_recommenda'), array('id' => 'enrolled-every-course'));
+            return $temp_html;
         }
 
         foreach ($final_array as $flag_key => $courseid) {
@@ -328,6 +337,13 @@ class Carroussel
 </script>";
 
         $temp_html .= $EQCSS;
+        $course_count = "1 " . get_string('coursesshow2', 'block_recommenda') . " " . count($final_array) . " " . get_string('coursesshow3', 'block_recommenda');
+
+        $temp_html .= html_writer::start_div('count-div');
+        $temp_html .= HTML_WRITER::tag('p', $course_count, array('id' => 'course-count'));
+        $temp_html .= html_writer::end_div();
+
+        $temp_html .= html_writer::end_div();
 
         return $temp_html;
     }
