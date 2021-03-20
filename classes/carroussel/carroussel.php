@@ -8,18 +8,14 @@ use core_course_category;
 use course_in_list;
 use html_writer;
 use moodle_url;
+use block_recommenda\renderer;
 
-class Carroussel
+class carroussel extends renderer
 {
-    private $final_array;
+    
     public function __construct($interests = array())
     {
         $this->final_array = array_keys($this->organize_interests($interests));
-    }
-
-    public function get_final_array()
-    {
-        return $this->final_array;
     }
 
     private function randomize_interests($best_matches)

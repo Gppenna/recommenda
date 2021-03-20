@@ -35,6 +35,13 @@ function cmp($a, $b) {
     return ($a > $b) ? -1 : 1;
 }
 
+function refresh_interests() {
+    global $USER;
+    if (!empty(optional_param('block_recommenda-submitbutton', '', PARAM_TEXT))) {
+        useredit_update_interests($USER, optional_param_array('recommenda_tags', array(), PARAM_TEXT));
+    }
+}
+
 /////////////////////////////////////
 // Shuffle function
 /////////////////////////////////////

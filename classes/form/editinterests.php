@@ -3,19 +3,13 @@
 namespace block_recommenda\form;
 
 use html_writer;
+use block_recommenda\renderer;
 
-class Editinterests
+class editinterests extends renderer
 {
-
-    private $final_array;
     public function __construct($interests = array())
     {
         $this->final_array = $interests;
-    }
-
-    public function get_final_array()
-    {
-        return $this->final_array;
     }
 
     private function get_all_tags($sort = '', $fields = '*', $limitfrom = 0, $limitnum = 0)

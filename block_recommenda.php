@@ -60,9 +60,7 @@ class block_recommenda extends block_base
         $this->content->text .= '<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">';
         $this->content->text .= '<script src="https://kit.fontawesome.com/ef79d3f4e6.js" crossorigin="anonymous"></script>';
 
-        if (!empty(optional_param('block_recommenda-submitbutton', '', PARAM_TEXT))) {
-            useredit_update_interests($USER, optional_param_array('recommenda_tags', array(), PARAM_TEXT));
-        }
+        refresh_interests();
 
         // Array of user tags
         $profile_interests = core_tag_tag::get_item_tags_array('core', 'user', $USER->id, core_tag_tag::BOTH_STANDARD_AND_NOT, 0, false);
@@ -77,17 +75,10 @@ class block_recommenda extends block_base
                 $interests[$key] = $tag;
             }
         }
-        $path = '\\block_recommenda\\renderer';
-        $renderer = new $path($interests, $profile_interests);
-        $class = $renderer->get_class();
-        $class_object = new $class($renderer->get_interests());
-        
-        /*if (empty($interests) || (!empty(optional_param('recommenda-editinterests-acao', '', PARAM_TEXT)) && optional_param('recommenda-editinterests-acao', '', PARAM_TEXT) == 'recommenda-editinterests') || 
-            (!empty(optional_param('block_recommenda-submitbutton', '', PARAM_TEXT)) && (empty($interests) && empty(optional_param_array('recommenda_tags', array(), PARAM_TEXT))))) {
-            $this->content->text .= execute_interests_form($profile_interests);
-        }
-        */
-        $this->content->text = '';
+        $path = '\\block_recommenda\\validate';
+        $validate = new $path($interests, $profile_interests);
+        $class = $validate->get_class();
+        $class_object = new $class($validate->get_interests());
 
         $html_content = $class_object->render($class_object->get_final_array());
         $this->content->text .= $html_content;
