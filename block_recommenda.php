@@ -59,32 +59,20 @@ class block_recommenda extends block_base
 
         $this->content->text .= '<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">';
         $this->content->text .= '<script src="https://kit.fontawesome.com/ef79d3f4e6.js" crossorigin="anonymous"></script>';
+        $this->content->text .= '
+    		<script src="https://cdnjs.cloudflare.com/ajax/libs/eqcss/1.9.2/EQCSS.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/css-element-queries/1.2.3/ResizeSensor.js"></script>';
 
         refresh_interests();
-
-        // Array of user tags
-        $profile_interests = core_tag_tag::get_item_tags_array('core', 'user', $USER->id, core_tag_tag::BOTH_STANDARD_AND_NOT, 0, false);
-        $interests = array();
-        $interests = $profile_interests;
-        $courses_enrolled = array();
-        $courses_enrolled = enrol_get_my_courses();
-
-        foreach ($courses_enrolled as $course_enrolled_single) {
-            $course_tags = core_tag_tag::get_item_tags_array('core', 'course', $course_enrolled_single->id);
-            foreach ($course_tags as $key => $tag) {
-                $interests[$key] = $tag;
-            }
-        }
+        
         $path = '\\block_recommenda\\validate';
-        $validate = new $path($interests, $profile_interests);
+        $validate = new $path();
         $class = $validate->get_class();
         $class_object = new $class($validate->get_interests());
 
         $html_content = $class_object->render($class_object->get_final_array());
         $this->content->text .= $html_content;
-        $this->content->text .= '
-    		<script src="https://cdnjs.cloudflare.com/ajax/libs/eqcss/1.9.2/EQCSS.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/css-element-queries/1.2.3/ResizeSensor.js"></script>';
+        
         $PAGE->requires->jquery();
         $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/blocks/recommenda/js/module.js'));
         $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/blocks/recommenda/js/dotdotdot.js'));
