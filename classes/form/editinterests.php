@@ -55,7 +55,7 @@ class editinterests extends renderer
             if ($count == 1) {
                 $html .= '<div class="col-md-4 form-item">';
             }
-            $boolLastKey = ($key == array_key_last($all_tags));
+            $boolLastKey = ($key == key($all_tags[$countItens - 1]));
             $html .= '<div class="form-group row fitem checkbox">';
             $checked = '';
             foreach ($final_array as $user_tag_name) {
