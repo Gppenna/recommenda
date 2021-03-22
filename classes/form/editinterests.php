@@ -83,9 +83,7 @@ class editinterests extends renderer
         $html .= '<div class="form-group fitem" style="display: inline;">';
         $html .= '<input type="submit" class="btn btn-primary" name="block_recommenda-submitbutton" id="block_recommenda-id_submitbutton" value="' . get_string('submit', 'block_recommenda') . '">';
         $html .= '</div>';
-
-        $submit = optional_param('block_recommenda-submitbutton', 'default', PARAM_TEXT);
-        if (!empty($final_array) || $submit === 'default') {
+        if (!empty($final_array)) {
             $html .= '<div class="form-group fitem" style="display: inline;">';
             $html .= '<input type="submit" class="btn btn-secondary" name="cancel" id="id_cancel" value="' . get_string('cancel', 'block_recommenda') . '">';
             $html .= '</div>';
