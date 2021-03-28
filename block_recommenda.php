@@ -45,7 +45,7 @@ class block_recommenda extends block_base
 
     public function get_content()
     {
-        global $PAGE, $USER, $CFG;
+        global $PAGE, $CFG;
 
         if ($this->content !== null) {
             return $this->content;
